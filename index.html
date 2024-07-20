@@ -7,9 +7,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 
     <title>Marketing Landing Page</title>
-
+<style>
+        .cart-dropdown {
+            display: none;
+        }
+        .cart-icon:hover .cart-dropdown {
+            display: block;
+        }
+    </style>
   </head>
   <body class="bg-white font-sans">
 
@@ -26,111 +34,67 @@
           <li class="ml-6"><a href="#">About Us</a></li>
           <li class="ml-6"><a href="#">Products</a></li>
           <li class="ml-6"><a href="#">Services</a></li>
+          <li class="ml-6">
+            <div class="relative cart-icon">
+                  <button onclick="toggleCart()" class="flex items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l1 9h11l1-9h2M6 12h12m-12 0l-1 9h12l-1-9M6 12l1-9h11l1 9M3 12v2a2 2 0 002 2h12a2 2 0 002-2v-2" />
+                      </svg>
+                      <span id="cartCount" class="ml-1">(0)</span>
+                  </button>
+                  <div id="cartDropdown" class="cart-dropdown absolute right-0 mt-2 w-64 bg-gray-800 text-white rounded-lg shadow-lg p-4">
+                      <h2 class="text-lg font-bold">购物车</h2>
+                      <div id="cartItems" class="mt-2"></div>
+                      <div class="flex justify-between items-center border-t mt-2 pt-2">
+                          <span>总计:</span>
+                          <span id="totalPrice">CNY$ 0.00</span>
+                      </div>
+                      <div class="flex justify-between mt-2">
+                          <button onclick="clearCart()" class="bg-gray-600 hover:bg-gray-500 text-white px-3 py-1 rounded">清空购物车</button>
+                          <button onclick="checkout()" class="bg-yellow-500 hover:bg-yellow-400 text-white px-3 py-1 rounded">结账</button>
+                      </div>
+                  </div>
+              </div>
+          </li>
           <li class="ml-6"><a href="#">EN</a></li>
         </ul>
       </div>
     </header>
 
-    <div class="mx-auto max-w-6xl bg-white py-20 px-12 lg:px-24 shadow-xl mb-24">
+    <div class="mx-auto max-w-6xl bg-white py-20 px-12 lg:px-24 shadow-xl mb-10">
 
       <div class="mb-12">
         <h1 class="text-3xl lg:text-4xl text-center mb-6 tracking-wider">NBA 2K24 Accounts</h1>
 
-        <p class="tracking-wide text-sm mb-6 leading-relaxed mx-auto max-w-xl text-center">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. <br class="hidden md:block" />Aenean commodo ligula eget dolor.</p>
+        <p class="tracking-wide text-sm mb-6 leading-relaxed mx-auto max-w-xl text-center">The best gpo3 game trading platform</p>
 
-        <p class="tracking-wide text-xs text-gray-600 leading-loose mx-auto max-w-xl text-center">Donec id elit non mi porta gravida at eget metus. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Nullam quis risus eget urna mollis ornare vel eu leo. Cras mattis consectetur purus sit amet fermentum.</p>
+        <!-- <p class="tracking-wide text-xs text-gray-600 leading-loose mx-auto max-w-xl text-center">Donec id elit non mi porta gravida at eget metus. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Nullam quis risus eget urna mollis ornare vel eu leo. Cras mattis consectetur purus sit amet fermentum.</p> -->
       </div>
 
     </div>
-     <div class="container mx-auto py-4">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-      <!-- 商品卡片 -->
-      <div class="bg-white p-4 rounded-lg shadow-md">
-        <img src="./DI1BlqQV7uECVDONjku0fwnaJjtLLEIV65Jlkb3U.webp" alt="Product Image" class="w-full h-auto mb-2">
-        <div class="font-bold text-center">PS5 500K VC ACCOUNTS</div>
-        <div class="text-orange-500 text-center mt-2 mb-4">¥362.60</div>
-        <div class="flex justify-around">
-          <button class="bg-blue-500 text-white px-4 py-1 rounded">详细内容</button>
-          <button class="bg-blue-500 text-white px-4 py-1 rounded" href="/pay.html">立即购买</button>
-        </div>
-      </div>
-      <!-- 复制上面的商品卡片并修改内容 -->
-      <div class="bg-white p-4 rounded-lg shadow-md">
-        <img src="DI1BlqQV7uECVDONjku0fwnaJjtLLEIV65Jlkb3U.webp" alt="Product Image" class="w-full h-auto mb-2">
-        <div class="font-bold text-center">PS5 1000K VC ACCOUNTS</div>
-        <div class="text-orange-500 text-center mt-2 mb-4">¥725.93</div>
-        <div class="flex justify-around">
-          <button class="bg-blue-500 text-white px-4 py-1 rounded">详细内容</button>
-          <button class="bg-blue-500 text-white px-4 py-1 rounded">立即购买</button>
-        </div>
-      </div>
-      <div class="bg-white p-4 rounded-lg shadow-md">
-        <img src="DI1BlqQV7uECVDONjku0fwnaJjtLLEIV65Jlkb3U.webp" alt="Product Image" class="w-full h-auto mb-2">
-        <div class="font-bold text-center">XBOX SERIES 500K VC ACCOUNTS</div>
-        <div class="text-orange-500 text-center mt-2 mb-4">¥289.93</div>
-        <div class="flex justify-around">
-          <button class="bg-blue-500 text-white px-4 py-1 rounded">详细内容</button>
-          <button class="bg-blue-500 text-white px-4 py-1 rounded">立即购买</button>
-        </div>
-      </div>
-      <div class="bg-white p-4 rounded-lg shadow-md">
-        <img src="DI1BlqQV7uECVDONjku0fwnaJjtLLEIV65Jlkb3U.webp" alt="Product Image" class="w-full h-auto mb-2">
-        <div class="font-bold text-center">XBOX SERIES 400K VC ACCOUNTS</div>
-        <div class="text-orange-500 text-center mt-2 mb-4">¥217.27</div>
-        <div class="flex justify-around">
-          <button class="bg-blue-500 text-white px-4 py-1 rounded">详细内容</button>
-          <button class="bg-blue-500 text-white px-4 py-1 rounded">立即购买</button>
-        </div>
-      </div>
-      <div class="bg-white p-4 rounded-lg shadow-md">
-        <img src="DI1BlqQV7uECVDONjku0fwnaJjtLLEIV65Jlkb3U.webp" alt="Product Image" class="w-full h-auto mb-2">
-        <div class="font-bold text-center">XBOX ONE 500K VC ACCOUNTS</div>
-        <div class="text-orange-500 text-center mt-2 mb-4">¥260.87</div>
-        <div class="flex justify-around">
-          <button class="bg-blue-500 text-white px-4 py-1 rounded">详细内容</button>
-          <button class="bg-blue-500 text-white px-4 py-1 rounded">立即购买</button>
-        </div>
-      </div>
-      <div class="bg-white p-4 rounded-lg shadow-md">
-        <img src="DI1BlqQV7uECVDONjku0fwnaJjtLLEIV65Jlkb3U.webp" alt="Product Image" class="w-full h-auto mb-2">
-        <div class="font-bold text-center">XBOX SERIES 1,000K MT ACCOUNT</div>
-        <div class="text-orange-500 text-center mt-2 mb-4">¥500.00</div>
-        <div class="flex justify-around">
-          <button class="bg-blue-500 text-white px-4 py-1 rounded">详细内容</button>
-          <button class="bg-blue-500 text-white px-4 py-1 rounded">立即购买</button>
-        </div>
-      </div>
-      <div class="bg-white p-4 rounded-lg shadow-md">
-        <img src="DI1BlqQV7uECVDONjku0fwnaJjtLLEIV65Jlkb3U.webp" alt="Product Image" class="w-full h-auto mb-2">
-        <div class="font-bold text-center">XBOX SERIES 2,000K MT ACCOUNT</div>
-        <div class="text-orange-500 text-center mt-2 mb-4">¥1000.00</div>
-        <div class="flex justify-around">
-          <button class="bg-blue-500 text-white px-4 py-1 rounded">详细内容</button>
-          <button class="bg-blue-500 text-white px-4 py-1 rounded">立即购买</button>
-        </div>
-      </div>
-      <div class="bg-white p-4 rounded-lg shadow-md">
-        <img src="DI1BlqQV7uECVDONjku0fwnaJjtLLEIV65Jlkb3U.webp" alt="Product Image" class="w-full h-auto mb-2">
-        <div class="font-bold text-center">XBOX SERIES 3,000K MT ACCOUNT</div>
-        <div class="text-orange-500 text-center mt-2 mb-4">¥1500.00</div>
-        <div class="flex justify-around">
-          <button class="bg-blue-500 text-white px-4 py-1 rounded">详细内容</button>
-          <button class="bg-blue-500 text-white px-4 py-1 rounded">立即购买</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="container mx-auto py-4">
-        <ul class="flex justify-center">
-            <li class="px-2 py-1 mr-1 bg-blue-500 text-white rounded">1</li>
-            <li class="px-2 py-1 mr-1 bg-blue-500 text-white rounded">2</li>
-            <li class="px-2 py-1 mr-1 bg-blue-500 text-white rounded">3</li>
-            <li class="px-2 py-1 mr-1 bg-blue-500 text-white rounded">4</li>
-            <li class="px-2 py-1 mr-1 bg-blue-500 text-white rounded">5</li>
-            <li class="px-2 py-1 mr-1 bg-blue-500 text-white rounded">Next</li>
-        </ul>
-    </div>
+      <div id="app" class="container mx-auto">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+            
+            <div class="bg-white p-4 rounded-lg shadow-md" v-for="product in paginatedProducts" :key="product.name">
+              <img :src="product.image" :alt="product.name" class="w-full h-auto mb-2">
+              <div class="text-center text-xs">{{ product.name }}</div>
+              <div class="text-center mt-2 mb-4 text-red-500 font-bold text-xl">¥{{ product.price.toFixed(2) }}</div>
+              <div class="flex justify-around">
+                <button  @click="detail(product)" class="bg-blue-500 text-white text-xs px-4 py-2 m-2 rounded">详细内容</button>
+                <button  @click="pay(product)" class="bg-blue-500 text-white text-xs px-4 py-2 m-2 rounded" href="/pay.html">立即购买</button>
+              </div>
+            </div>
+           </div>
 
+           <div class="container mx-auto py-4">
+              <div class="flex justify-center items-center mt-4">
+                <button @click="previousPage" :disabled="currentPage === 1" class="px-4 py-2 mx-1 rounded bg-gray-300 text-gray-700 hover:bg-gray-400 disabled:opacity-50">上一页</button>
+                <span class="mx-2 text-lg">页码: {{ currentPage }} / {{ totalPages }}</span>
+                <button @click="nextPage" :disabled="currentPage === totalPages" class="px-4 py-2 mx-1 rounded bg-gray-300 text-gray-700 hover:bg-gray-400 disabled:opacity-50">下一页</button>
+            </div>
+          </div>
+
+    </div>
     <div class="bg-gray-200 px-6 py-12">
 
       <footer class="container mx-auto">
@@ -171,22 +135,106 @@
     </div>
 
   </body>
-  <script type="text/javascript">
-      function BindByDom() {
-            try{
-                var htmlBtns = document.getElementsByTagName('button');//获取HTMLCollection对象集合
-                //遍历集合，一个一个地设置点击事件
-                for (var i = 0; i < htmlBtns.length; ++i) {
-                    htmlBtns[i].onclick = function () {
-                        window.location.href="detail.html";
-                    };
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                products: [
+                    { name: 'PS5 500K VC ACCOUNTS', price: 362.60, image: 'DI1BlqQV7uECVDONjku0fwnaJjtLLEIV65Jlkb3U.webp' },
+                    { name: 'PS5 1000K VC ACCOUNTS', price: 725.93, image: 'DI1BlqQV7uECVDONjku0fwnaJjtLLEIV65Jlkb3U.webp' },
+                    { name: 'XBOX SERIES 500K VC ACCOUNTS', price: 289.93, image: 'DI1BlqQV7uECVDONjku0fwnaJjtLLEIV65Jlkb3U.webp' },
+                    { name: 'XBOX SERIES 400K VC ACCOUNTS', price: 217.27, image: 'DI1BlqQV7uECVDONjku0fwnaJjtLLEIV65Jlkb3U.webp' },
+                    { name: 'XBOX ONE 500K VC ACCOUNTS', price: 260.87, image: 'DI1BlqQV7uECVDONjku0fwnaJjtLLEIV65Jlkb3U.webp' },
+                    { name: 'XBOX SERIES 1000K MT ACCOUNT', price: 500.00, image: 'DI1BlqQV7uECVDONjku0fwnaJjtLLEIV65Jlkb3U.webp' },
+                    { name: 'XBOX SERIES 2000K MT ACCOUNT', price: 1000.00, image: 'DI1BlqQV7uECVDONjku0fwnaJjtLLEIV65Jlkb3U.webp' },
+                    { name: 'XBOX SERIES 3000K MT ACCOUNT', price: 1500.00, image: 'DI1BlqQV7uECVDONjku0fwnaJjtLLEIV65Jlkb3U.webp' },
+                    { name: 'XBOX ONE 5002K VC ACCOUNTS', price: 260.87, image: 'DI1BlqQV7uECVDONjku0fwnaJjtLLEIV65Jlkb3U.webp' },
+                    { name: 'XBOX SERIES 10001K MT ACCOUNT', price: 500.00, image: 'DI1BlqQV7uECVDONjku0fwnaJjtLLEIV65Jlkb3U.webp' },
+                    { name: 'XBOX SERIES 20002K MT ACCOUNT', price: 1000.00, image: 'DI1BlqQV7uECVDONjku0fwnaJjtLLEIV65Jlkb3U.webp' },
+                    { name: 'XBOX SERIES 30003K MT ACCOUNT', price: 1500.00, image: 'DI1BlqQV7uECVDONjku0fwnaJjtLLEIV65Jlkb3U.webp' },
+                    { name: 'XBOX ONE 5001K VC ACCOUNTS', price: 260.87, image: 'DI1BlqQV7uECVDONjku0fwnaJjtLLEIV65Jlkb3U.webp' },
+                    { name: 'XBOX SERIES 100011K MT ACCOUNT', price: 500.00, image: 'DI1BlqQV7uECVDONjku0fwnaJjtLLEIV65Jlkb3U.webp' },
+                    { name: 'XBOX SERIES 200022K MT ACCOUNT', price: 1000.00, image: 'DI1BlqQV7uECVDONjku0fwnaJjtLLEIV65Jlkb3U.webp' },
+                    { name: 'XBOX SERIES 300033K MT ACCOUNT', price: 1500.00, image: 'DI1BlqQV7uECVDONjku0fwnaJjtLLEIV65Jlkb3U.webp' },
+                    // 其他商品...
+                ],
+                currentPage: 1,
+                itemsPerPage: 10 // 每页显示的商品数量
+            },
+            computed: {
+                totalPages() {
+                    return Math.ceil(this.products.length / this.itemsPerPage);
+                },
+                paginatedProducts() {
+                    const start = (this.currentPage - 1) * this.itemsPerPage;
+                    return this.products.slice(start, start + this.itemsPerPage);
+                }
+            },
+            methods: {
+                detail(product) {
+                    localStorage.setItem('selectedProduct', JSON.stringify(product));
+                    window.location.href = 'detail.html'; // 跳转到结账页面
+                },
+                pay(product) {
+                    localStorage.setItem('selectedProduct', JSON.stringify(product));
+                    window.location.href = 'pay.html'; // 跳转到结账页面
+                },
+                nextPage() {
+                    if (this.currentPage < this.totalPages) {
+                        this.currentPage++;
+                    }
+                },
+                previousPage() {
+                    if (this.currentPage > 1) {
+                        this.currentPage--;
+                    }
                 }
             }
-            catch (error) {
-                alert(error);
-            }
-    }
+        });
+    </script>
+    <script type="text/javascript">
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      
+      function updateCart() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+            const cartItemsElement = document.getElementById('cartItems');
+            cartItemsElement.innerHTML = '';
+            let total = 0;
 
-    BindByDom()
-  </script>
+            cart.forEach((item, index) => {
+                const itemElement = document.createElement('div');
+                console.log(item)
+                itemElement.innerHTML = `
+                    ${item.product} - HK$ ${item.price.toFixed(2)} 
+                    <button onclick="removeFromCart(${index})" class="text-red-500 hover:underline">删除</button>
+                `;
+                cartItemsElement.appendChild(itemElement);
+                total += item.price;
+            });
+
+            document.getElementById('cartCount').textContent = `(${cart.length})`;
+            document.getElementById('totalPrice').textContent = `HK$ ${total.toFixed(2)}`;
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        function clearCart() {
+            cart = [];
+            updateCart();
+        }
+
+        function checkout() {
+            window.location.href="pay.html"
+        }
+
+        function toggleCart() {
+            const dropdown = document.getElementById('cartDropdown');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        }
+
+        updateCart();
+    </script>
 </html>

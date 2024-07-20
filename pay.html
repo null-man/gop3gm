@@ -7,11 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
-
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
     <title>Marketing Landing Page</title>
-
+<style>
+        .cart-dropdown {
+            display: none;
+        }
+        .cart-icon:hover .cart-dropdown {
+            display: block;
+        }
+    </style>
   </head>
-  <body class="bg-white font-sans">
+  <body class="bg-white font-sans bg-gray-100">
 
     <header class="bg-white relative z-20 px-6">
       <div class="container mx-auto flex justify-between items-center relative h-24">
@@ -22,19 +29,41 @@
         </a>
 
         <ul class="hidden md:flex flex-1 h-full justify-end items-center text-sm">
-          <li><a href="#" class="hover:opacity-75">Home</a></li>
+          <li><a href="index.html" class="hover:opacity-75">Home</a></li>
           <li class="ml-6"><a href="#">About Us</a></li>
           <li class="ml-6"><a href="#">Products</a></li>
           <li class="ml-6"><a href="#">Services</a></li>
+          <li class="ml-6">
+            <div class="relative cart-icon">
+                  <button onclick="toggleCart()" class="flex items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l1 9h11l1-9h2M6 12h12m-12 0l-1 9h12l-1-9M6 12l1-9h11l1 9M3 12v2a2 2 0 002 2h12a2 2 0 002-2v-2" />
+                      </svg>
+                      <span id="cartCount" class="ml-1">(0)</span>
+                  </button>
+                  <div id="cartDropdown" class="cart-dropdown absolute right-0 mt-2 w-64 bg-gray-800 text-white rounded-lg shadow-lg p-4">
+                      <h2 class="text-lg font-bold">购物车</h2>
+                      <div id="cartItems" class="mt-2"></div>
+                      <div class="flex justify-between items-center border-t mt-2 pt-2">
+                          <span>总计:</span>
+                          <span id="totalPrice">CNY$ 0.00</span>
+                      </div>
+                      <div class="flex justify-between mt-2">
+                          <button onclick="clearCart()" class="bg-gray-600 hover:bg-gray-500 text-white px-3 py-1 rounded">清空购物车</button>
+                          <button onclick="checkout()" class="bg-yellow-500 hover:bg-yellow-400 text-white px-3 py-1 rounded">结账</button>
+                      </div>
+                  </div>
+              </div>
+          </li>
           <li class="ml-6"><a href="#">EN</a></li>
         </ul>
       </div>
     </header>
-<div class="container mx-auto py-4">
+<div id="app" class="container mx-auto py-8 bg-gray-100">
         <!-- 面包屑导航 -->
-        <div class="mb-4">
+        <!-- <div class="mb-4">
             <a href="index.html" class="text-gray-500">首页</a> / <span class="text-gray-700">结账</span>
-        </div>
+        </div> -->
 
         <!-- 主体部分 -->
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
@@ -45,14 +74,20 @@
                     <div class="flex items-center justify-between border-b pb-2 mb-4">
                         <h2 class="text-lg font-bold text-white bg-blue-500 px-2 py-1 rounded">第一步</h2>
                     </div>
-                    <div class="flex justify-between items-center border p-2 rounded">
-                        <span>All / PS5 1000K VC ACCOUNTS * 1</span>
-                        <span class="text-orange-500">¥ 725.93</span>
-                        <button class="text-gray-500 hover:text-red-500">&times;</button>
+
+                    <div v-for="(item, index) in cartItems" :key="index" class="flex justify-between items-center p-2 border-b">
+                    <div>
+                        <span>All / {{ item.product }} </span>
                     </div>
+                    <div>
+                        <span>¥{{ (item.price).toFixed(2) }}</span>
+                        <button @click="removeItem(index)" class="text-red-500 ml-2">×</button>
+                    </div>
+                </div>
+                    
                     <div class="flex justify-between mt-4">
-                        <button class="bg-gray-500 text-white px-4 py-2 rounded">继续购物</button>
-                        <button class="bg-gray-500 text-white px-4 py-2 rounded">清空购物车</button>
+                        <button onclick="goBuy()" class="bg-gray-500 text-white px-4 py-2 rounded">继续购物</button>
+                        <button @click="clearCart()" class="bg-gray-500 text-white px-4 py-2 rounded">清空购物车</button>
                     </div>
                 </div>
 
@@ -88,23 +123,23 @@
                             <button class="bg-blue-500 text-white px-4 py-2 rounded-r-md">应用</button>
                         </div> -->
                     </div>
-                    <div class="flex justify-between">
-                        <span>总价:</span>
-                        <span>¥ 725.93</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span>手续费:</span>
-                        <span>¥ 20.32</span>
-                    </div>
-                    <div class="flex justify-between text-orange-500 font-bold">
-                        <span>最后金额:</span>
-                        <span>¥ 746.25</span>
-                    </div>
+                      <div class="flex justify-between">
+                          <span>总价:</span>
+                          <span>¥ {{ totalPrice.toFixed(2) }}</span>
+                      </div>
+                      <div class="flex justify-between">
+                          <span>手续费:</span>
+                          <span>¥ {{ fee.toFixed(2) }}</span>
+                      </div>
+                      <div class="flex justify-between text-orange-500 font-bold">
+                          <span>最后金额:</span>
+                          <span>¥ {{ finalAmount.toFixed(2) }}</span>
+                      </div>
                     <div class="flex items-center">
                         <input type="checkbox" id="agree" class="mr-2">
                         <label for="agree" class="text-gray-700">我已阅读并接受 <a href="#" class="text-blue-500">服务条款</a>.</label>
                     </div>
-                    <button class="bg-blue-500 text-white w-full py-2 rounded">立即支付</button>
+                    <button class="bg-blue-500 text-white w-full py-2 rounded" @click="pay" :disabled="!acceptedTerms">立即支付</button>
                 </div>
             </div>
         </div>
@@ -149,7 +184,93 @@
     </div>
 
   </body>
-  <script type="text/javascript">
-    console.log(JSON.parse(localStorage.getItem('cart')))
-  </script>
+    <script type="text/javascript">
+      function goBuy() {
+        window.location = 'index.html'
+      }
+
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      
+      function updateCart() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+            const cartItemsElement = document.getElementById('cartItems');
+            cartItemsElement.innerHTML = '';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                const itemElement = document.createElement('div');
+                console.log(item)
+                itemElement.innerHTML = `
+                    ${item.product} - HK$ ${item.price.toFixed(2)} 
+                    <button onclick="removeFromCart(${index})" class="text-red-500 hover:underline">删除</button>
+                `;
+                cartItemsElement.appendChild(itemElement);
+                total += item.price;
+            });
+
+            document.getElementById('cartCount').textContent = `(${cart.length})`;
+            document.getElementById('totalPrice').textContent = `HK$ ${total.toFixed(2)}`;
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        function clearCart() {
+            cart = [];
+            updateCart();
+        }
+
+        function checkout() {
+            window.location.href="pay.html"
+        }
+
+        function toggleCart() {
+            const dropdown = document.getElementById('cartDropdown');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        }
+
+        updateCart();
+
+        new Vue({
+            el: '#app',
+            data: {
+                cartItems: cart,
+                acceptedTerms: false
+            },
+            computed: {
+                totalPrice() {
+                    return this.cartItems.reduce((sum, item) => sum + item.price, 0);
+                },
+                fee() {
+                    return this.totalPrice * 0.0279; // 假设手续费为2.79%
+                },
+                finalAmount() {
+                    return this.totalPrice + this.fee;
+                }
+            },
+            methods: {
+                removeItem(index) {
+                  this.cartItems.splice(index, 1);
+                  cart.splice(index, 1);
+                  updateCart();
+                },
+                clearCart() {
+                  // 页面
+                  this.cartItems = [];
+                  // 实际数据
+                  clearCart()
+                },
+                continueShopping() {
+                    // 继续购物的逻辑，例如跳转到商品列表页面
+                    window.location.href = 'index.html'; // 示例跳转
+                },
+                pay() {
+                    // 支付逻辑
+                    alert('支付成功！');
+                }
+            }
+        });
+    </script>
 </html>
