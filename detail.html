@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .cart-dropdown {
+            display: none;
+        }
+        .cart-icon:hover .cart-dropdown {
+            display: block;
+        }
+    </style>
+
+    <title>Marketing Landing Page</title>
+
+  </head>
+    <header class="bg-white relative z-20 px-6">
+      <div class="container mx-auto flex justify-between items-center relative h-24">
+
+        <a href="#" class="w-64 h-full inline-block py-4 flex items-center font-black text-lg">
+          GOP3GM
+          <!-- <img src="http://placehold.it/280x160" class="h-full w-auto" /> -->
+        </a>
+
+        <ul class="hidden md:flex flex-1 h-full justify-end items-center text-sm">
+          <li><a href="#" class="hover:opacity-75">Home</a></li>
+          <li class="ml-6"><a href="#">About Us</a></li>
+          <li class="ml-6"><a href="#">Products</a></li>
+          <li class="ml-6"><a href="#">Services</a></li>
+          <li class="ml-6">
+            <div class="relative cart-icon">
+                  <button onclick="toggleCart()" class="flex items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l1 9h11l1-9h2M6 12h12m-12 0l-1 9h12l-1-9M6 12l1-9h11l1 9M3 12v2a2 2 0 002 2h12a2 2 0 002-2v-2" />
+                      </svg>
+                      <span id="cartCount" class="ml-1">(0)</span>
+                  </button>
+                  <div id="cartDropdown" class="cart-dropdown absolute right-0 mt-2 w-64 bg-gray-800 text-white rounded-lg shadow-lg p-4">
+                      <h2 class="text-lg font-bold">购物车</h2>
+                      <div id="cartItems" class="mt-2"></div>
+                      <div class="flex justify-between items-center border-t mt-2 pt-2">
+                          <span>总计:</span>
+                          <span id="totalPrice">CNY$ 0.00</span>
+                      </div>
+                      <div class="flex justify-between mt-2">
+                          <button onclick="clearCart()" class="bg-gray-600 hover:bg-gray-500 text-white px-3 py-1 rounded">清空购物车</button>
+                          <button onclick="checkout()" class="bg-yellow-500 hover:bg-yellow-400 text-white px-3 py-1 rounded">结账</button>
+                      </div>
+                  </div>
+              </div>
+          </li>
+          <li class="ml-6"><a href="#">EN</a></li>
+        </ul>
+      </div>
+    </header>
+<body class="bg-gray-100">
+    <div class="container mx-auto py-8">
+        <div class="bg-white p-4 rounded-lg shadow-md">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                <!-- 左侧部分 -->
+                <div class="col-span-1">
+                    <img src="./DI1BlqQV7uECVDONjku0fwnaJjtLLEIV65Jlkb3U.webp" alt="Product Image" class="w-full h-auto mb-4 rounded">
+                    <div class="flex space-x-2">
+                        <img src="./DI1BlqQV7uECVDONjku0fwnaJjtLLEIV65Jlkb3U.webp" alt="Thumbnail" class="w-16 h-16 rounded">
+                        <!-- 添加更多缩略图 -->
+                    </div>
+                </div>
+                
+                <!-- 中间部分 -->
+                <div class="col-span-1 lg:col-span-2">
+                    <h1 class="text-2xl font-bold">PS5 500K VC ACCOUNTS</h1>
+                    <div class="mt-4">
+                        <p><strong>Delivery Method:</strong> Mail</p>
+                        <p><strong>Delivery Time:</strong> Within 30 Mins</p>
+                    </div>
+                    <div id="price" class="mt-4 text-orange-500 text-2xl">¥ 362.60</div>
+                    
+                    <div class="flex items-center space-x-4 mt-4">
+                        <button onclick="decreaseQuantity()" class="bg-gray-300 text-gray-700 px-3 py-1 rounded">-</button>
+                        <input id="quantity" type="text" value="1" class="w-12 text-center border-t border-b border-gray-300">
+                        <button onclick="increaseQuantity()" class="bg-gray-300 text-gray-700 px-3 py-1 rounded">+</button>
+                    </div>
+                    
+                    <div class="flex space-x-4 mt-4">
+                        <button onclick="buyNow()" class="bg-blue-500 text-white px-6 py-2 rounded">立即购买</button>
+                        <button onclick="addToCartDo()" class="bg-blue-500 text-white px-6 py-2 rounded">加入购物车</button>
+                    </div>
+                </div>
+            </div>
+            <!-- 右侧部分 -->
+            <div class="mt-4 lg:mt-0 lg:col-span-1">
+                <h2 class="text-lg font-bold">Shop with Confidence</h2>
+                <ul class="list-disc pl-5 mt-2">
+                    <li>Delivery Guarantees: We offer guaranteed delivery and state the delivery date on the checkout page.</li>
+                    <li>7 Day(s) Warranty: Products are covered by Our Site with a warranty upon delivery.</li>
+                    <li>Money Back guaranteed: If there is any issue during the warranty, you can apply for a refund of order. Free Refund.</li>
+                    <li>FREE: We do not charge any fees. You will receive a refund for as much as you pay.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- 产品描述 -->
+        <div class="bg-white p-4 rounded-lg shadow-md mt-8">
+            <h2 class="text-xl font-bold border-b pb-2">Product Description:</h2>
+            <table class="w-full mt-4">
+                <tr class="border-b">
+                    <td class="px-4 py-2"><strong>Platform</strong></td>
+                    <td class="px-4 py-2">PS5</td>
+                    <td class="px-4 py-2"><strong>VC amount</strong></td>
+                    <td class="px-4 py-2">500,000</td>
+                </tr>
+            </table>
+            
+            <h3 class="text-lg font-bold mt-4">Description:</h3>
+            <p class="mt-2">
+                This is a PS5 Account.<br/>
+                Contain more than 500,000 VC, you can buy all your favor cards.<br/>
+                All account information can be changed.<br/>
+                After purchasing, write the correct email address, and we will send the account info to you instantly!<br/>
+                Change the account information as soon as possible and make it your own!<br/>
+            </p>
+            <p class="mt-2">
+                <strong>Product pictures:</strong>
+                <img src="./DI1BlqQV7uECVDONjku0fwnaJjtLLEIV65Jlkb3U.webp" alt="Product Image" class="w-40 h-auto mb-4 rounded">
+            </p>
+        </div>
+    </div>
+    <div class="bg-gray-200 px-6 py-12">
+
+      <footer class="container mx-auto">
+
+        <div class="flex flex-col md:flex-row">
+          <div class="md:w-1/4 flex flex-col mb-12 md:mb-0">
+            <h4 class="font-condensed pb-4">Legal</h4>
+            <a href="#" class="text-sm text-gray-800 py-1">Privacy Policy</a>
+            <a href="#" class="text-sm text-gray-800 py-1">Terms & Conditions</a>
+          </div>
+          <div class="md:w-1/4 flex flex-col mb-12 md:mb-0">
+            <h4 class="font-condensed pb-4">About</h4>
+            <a href="#" class="text-sm text-gray-800 py-1">Company Information</a>
+            <a href="#" class="text-sm text-gray-800 py-1">History</a>
+          </div>
+          <div class="md:w-1/4 flex flex-col mb-12 md:mb-0">
+            <h4 class="font-condensed pb-4">Services</h4>
+            <a href="#" class="text-sm text-gray-800 py-1">Buildings</a>
+            <a href="#" class="text-sm text-gray-800 py-1">Construction</a>
+          </div>
+          <div class="md:w-1/4 flex flex-col mb-12 md:mb-0">
+            <h4 class="font-condensed pb-4">Find us</h4>
+            <a href="#" target="_blank" class="text-sm text-gray-800 py-1">Office Location</a>
+            <a href="#" target="_blank" class="text-sm text-gray-800 py-1">Contact Us</a>
+          </div>
+        </div>
+
+        <div class="flex justify-between items-end pt-12">
+          <div class="w-full md:w-1/2">
+            <div>
+              <p class="text-sm text-gray-700">Copyright © 2019 Company Name.</p>
+              <p class="text-xs text-gray-700 mt-2">Etiam dignissim diam quis enim lobortis scelerisque fermentum dui.</p>
+            </div>
+          </div>
+        </div>
+
+      </footer>
+    </div>
+
+  </body>
+  <script>
+        let quantity = 1;
+        const price = 362.60;
+
+        function decreaseQuantity() {
+            if (quantity > 1) {
+                quantity--;
+                document.getElementById('quantity').value = quantity;
+                updatePrice();
+            }
+        }
+
+        function increaseQuantity() {
+            quantity++;
+            document.getElementById('quantity').value = quantity;
+            updatePrice();
+        }
+
+        function updatePrice() {
+            const totalPrice = (quantity * price).toFixed(2);
+            document.getElementById('price').textContent = `¥ ${totalPrice}`;
+        }
+
+        function buyNow() {
+            window.location.href="pay.html";
+            // 在这里可以添加跳转到购物车页面的代码
+        }
+
+        function addToCartDo() {
+             addToCart('PS5 500K VC ACCOUNTS', 362.60);
+        }
+    </script>
+
+     <script>
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const priceMap = {
+            'PS5 1000K VC ACCOUNTS': 3901.54,
+        };
+
+        function addToCart(product, price) {
+            cart.push({ product, price });
+            updateCart();
+        }
+
+        function updateCart() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+            const cartItemsElement = document.getElementById('cartItems');
+            cartItemsElement.innerHTML = '';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                const itemElement = document.createElement('div');
+                itemElement.innerHTML = `
+                    ${item.product} - HK$ ${item.price.toFixed(2)} 
+                    <button onclick="removeFromCart(${index})" class="text-red-500 hover:underline">删除</button>
+                `;
+                cartItemsElement.appendChild(itemElement);
+                total += item.price;
+            });
+
+            document.getElementById('cartCount').textContent = `(${cart.length})`;
+            document.getElementById('totalPrice').textContent = `HK$ ${total.toFixed(2)}`;
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        function clearCart() {
+            cart = [];
+            updateCart();
+        }
+
+        function checkout() {
+            window.location.href="pay.html"
+        }
+
+         function toggleCart() {
+            const dropdown = document.getElementById('cartDropdown');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // 初始化购物车
+        updateCart();
+    </script>
+</html>

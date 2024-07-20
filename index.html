@@ -51,7 +51,7 @@
         <div class="text-orange-500 text-center mt-2 mb-4">¥362.60</div>
         <div class="flex justify-around">
           <button class="bg-blue-500 text-white px-4 py-1 rounded">详细内容</button>
-          <button class="bg-blue-500 text-white px-4 py-1 rounded">立即购买</button>
+          <button class="bg-blue-500 text-white px-4 py-1 rounded" href="/pay.html">立即购买</button>
         </div>
       </div>
       <!-- 复制上面的商品卡片并修改内容 -->
@@ -171,4 +171,22 @@
     </div>
 
   </body>
+  <script type="text/javascript">
+      function BindByDom() {
+            try{
+                var htmlBtns = document.getElementsByTagName('button');//获取HTMLCollection对象集合
+                //遍历集合，一个一个地设置点击事件
+                for (var i = 0; i < htmlBtns.length; ++i) {
+                    htmlBtns[i].onclick = function () {
+                        window.location.href="detail.html";
+                    };
+                }
+            }
+            catch (error) {
+                alert(error);
+            }
+    }
+
+    BindByDom()
+  </script>
 </html>
