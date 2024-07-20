@@ -17,6 +17,33 @@
             display: block;
         }
     </style>
+    <style>
+        .contact-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .icon-button {
+            background-color: #1DA1F2;
+            border-radius: 50%;
+            padding: 15px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+        }
+        .icon-button:hover {
+            transform: scale(1.1);
+        }
+        .icon {
+            width: 30px;
+            height: 30px;
+            fill: white; /* 图标颜色 */
+        }
+    </style>
   </head>
   <body class="bg-white font-sans bg-gray-100">
 
@@ -29,10 +56,10 @@
         </a>
 
         <ul class="hidden md:flex flex-1 h-full justify-end items-center text-sm">
-          <li><a href="index.html" class="hover:opacity-75">Home</a></li>
-          <li class="ml-6"><a href="#">About Us</a></li>
+          <li><a href="index.html" class="hover:opacity-75" data-translate="home">Home</a></li>
+          <!-- <li class="ml-6"><a href="#">About Us</a></li>
           <li class="ml-6"><a href="#">Products</a></li>
-          <li class="ml-6"><a href="#">Services</a></li>
+          <li class="ml-6"><a href="#">Services</a></li> -->
           <li class="ml-6">
             <div class="relative cart-icon">
                   <button onclick="toggleCart()" class="flex items-center">
@@ -55,7 +82,14 @@
                   </div>
               </div>
           </li>
-          <li class="ml-6"><a href="#">EN</a></li>
+          <li class="ml-6">
+            <select id="language-selector" class="mx-2 border rounded p-1">
+                    <option value="en">English</option>
+                    <option value="cn">中文</option>
+                    <option value="es">Español</option>
+                    <option value="fr">Français</option>
+                </select>
+          </li>
         </ul>
       </div>
     </header>
@@ -136,10 +170,13 @@
                           <span>¥ {{ finalAmount.toFixed(2) }}</span>
                       </div>
                     <div class="flex items-center">
-                        <input type="checkbox" id="agree" class="mr-2">
+                        <input type="checkbox" id="agree" v-model="acceptedTerms" class="mr-2">
                         <label for="agree" class="text-gray-700">我已阅读并接受 <a href="#" class="text-blue-500">服务条款</a>.</label>
                     </div>
                     <button class="bg-blue-500 text-white w-full py-2 rounded" @click="pay" :disabled="!acceptedTerms">立即支付</button>
+                    <p v-if="!acceptedTerms" class="text-red-500 mt-2">
+                请先同意服务条款。
+            </p>
                 </div>
             </div>
         </div>
@@ -182,7 +219,20 @@
 
       </footer>
     </div>
+ <div class="contact-icon">
+        <div class="icon-button" onclick="openLiveChat()">
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M12 0C5.373 0 0 4.373 0 12c0 2.36.823 4.53 2.19 6.25L0 24l5.75-2.189C7.47 22.177 9.64 23 12 23c6.627 0 12-4.373 12-12S18.627 0 12 0zm0 20.25c-1.48 0-2.83-.49-3.93-1.32l-1.64.6.6-1.64C6.49 15.83 5.25 14.04 5.25 12c0-4.142 3.358-7.5 7.5-7.5s7.5 3.358 7.5 7.5-3.358 7.5-7.5 7.5z"/>
+            </svg>
+        </div>
+    </div>
 
+    <script>
+        function openLiveChat() {
+            // 替换为您的 LiveChat 代码或链接
+            window.open('https://direct.lc.chat/18298704', '_blank');
+        }
+    </script>
   </body>
     <script type="text/javascript">
       function goBuy() {
@@ -267,10 +317,75 @@
                     window.location.href = 'index.html'; // 示例跳转
                 },
                 pay() {
+                  if (this.acceptedTerms) {
                     // 支付逻辑
-                    alert('支付成功！');
+                    alert('发起支付！');
+                  }
+                    
                 }
             }
+        });
+    </script>
+    <script type="text/javascript">
+      const i18n = {
+          language: 'en',
+          languages: {
+              en: 'English',
+              cn: '中文',
+              es: 'Español',
+              fr: 'Français'
+          },
+          translations: {
+              en: {
+                  home: 'Home',
+                  about: 'About Us',
+                  products: 'Products',
+                  services: 'Services',
+                  cart: 'Cart'
+              },
+              cn: {
+                  home: '首页',
+                  about: '关于我们',
+                  products: '产品',
+                  services: '服务',
+                  cart: '购物车'
+              },
+              es: {
+                  home: 'Inicio',
+                  about: 'Sobre Nosotros',
+                  products: 'Productos',
+                  services: 'Servicios',
+                  cart: 'Carrito'
+              },
+              fr: {
+                  home: 'Accueil',
+                  about: 'À Propos',
+                  products: 'Produits',
+                  services: 'Services',
+                  cart: 'Panier'
+              }
+          },
+          translate(key) {
+              return this.translations[this.language][key];
+          },
+          changeLanguage(lang) {
+              this.language = lang;
+              this.updatePage();
+          },
+          updatePage() {
+              document.querySelectorAll('[data-translate]').forEach((element) => {
+                  const key = element.getAttribute('data-translate');
+                  element.innerText = this.translate(key);
+              });
+          }
+      };
+
+      document.addEventListener('DOMContentLoaded', () => {
+            i18n.updatePage();
+
+            document.getElementById('language-selector').addEventListener('change', (event) => {
+                i18n.changeLanguage(event.target.value);
+            });
         });
     </script>
 </html>
