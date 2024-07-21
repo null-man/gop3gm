@@ -58,8 +58,8 @@
 
         <ul class="hidden md:flex flex-1 h-full justify-end items-center text-sm">
           <li><a href="#" class="hover:opacity-75" data-translate="home">Home</a></li>
-         <!--  <li class="ml-6"><a href="#">About Us</a></li>
-          <li class="ml-6"><a href="#">Products</a></li>
+          <li class="ml-6" data-translate="order"><a href="#">Check Order</a></li>
+         <!--  <li class="ml-6"><a href="#">Products</a></li>
           <li class="ml-6"><a href="#">Services</a></li> -->
           <li class="ml-6">
             <div class="relative cart-icon">
@@ -84,12 +84,12 @@
               </div>
           </li>
           <li class="ml-6">
-            <select id="language-selector" class="mx-2 border rounded p-1">
-                    <option value="en">English</option>
-                    <option value="cn">中文</option>
-                    <option value="es">Español</option>
-                    <option value="fr">Français</option>
-                </select>
+            <select id="language-selector" >
+                <option value="en">English</option>
+                <option value="cn">中文</option>
+                <option value="es">Español</option>
+                <option value="fr">Français</option>
+            </select>
           </li>
         </ul>
       </div>
@@ -184,6 +184,17 @@
 
   </body>
     <script>
+       window.onload = function() {
+            // 从 localStorage 获取保存的语言
+            const savedLanguage = localStorage.getItem('language') || 'en'; // 默认值为 'en'
+
+            // 获取 select 元素
+            const languageSelect = document.getElementById('language-selector');
+
+            // 设置 select 的值为保存的语言
+            languageSelect.value = savedLanguage;
+        };
+
         new Vue({
             el: '#app',
             data: {
@@ -206,6 +217,7 @@
                     { name: 'XBOX SERIES 300033K MT ACCOUNT', price: 1500.00, image: 'DI1BlqQV7uECVDONjku0fwnaJjtLLEIV65Jlkb3U.webp' },
                     // 其他商品...
                 ],
+                currentLanguage: localStorage.getItem('language') || 'en',
                 currentPage: 1,
                 itemsPerPage: 10 // 每页显示的商品数量
             },
@@ -287,8 +299,10 @@
     </script>
 
     <script type="text/javascript">
+      const savedLanguage = localStorage.getItem('language') || 'en';
+
       const i18n = {
-          language: 'en',
+          language: savedLanguage,
           languages: {
               en: 'English',
               cn: '中文',
@@ -306,7 +320,8 @@
                   buy:'Buy Now',
                   pre:'previousPage',
                   next:'nextPage',
-                  pagination:'pagination'
+                  pagination:'pagination',
+                  order:'Check Order'
               },
               cn: {
                   home: '首页',
@@ -318,7 +333,8 @@
                   buy:'立即购买',
                   pre:'上一页',
                   next:'下一页',
-                  pagination:'页码'
+                  pagination:'页码',
+                  order:'检查订单'
               },
               es: {
                   home: 'Inicio',
@@ -350,12 +366,18 @@
           }
       };
 
+
       document.addEventListener('DOMContentLoaded', () => {
             i18n.updatePage();
 
             document.getElementById('language-selector').addEventListener('change', (event) => {
+
                 i18n.changeLanguage(event.target.value);
+                localStorage.setItem('language', event.target.value);
+
             });
         });
+
+
     </script>
 </html>

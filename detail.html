@@ -230,6 +230,18 @@
           product
         }
       })
+
+    window.onload = function() {
+            // 从 localStorage 获取保存的语言
+            const savedLanguage = localStorage.getItem('language') || 'en'; // 默认值为 'en'
+
+            // 获取 select 元素
+            const languageSelect = document.getElementById('language-selector');
+
+            // 设置 select 的值为保存的语言
+            languageSelect.value = savedLanguage;
+        };
+        
   </script>
 
   <script>
