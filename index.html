@@ -236,7 +236,14 @@
                     window.location.href = 'detail.html'; // 跳转到结账页面
                 },
                 pay(product) {
-                    localStorage.setItem('selectedProduct', JSON.stringify(product));
+                    let p = product
+                    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+                    cart.push({ product:p.name, price:p.price });
+                    // console.log(cart)
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    
+                    localStorage.setItem('selectedProduct', JSON.stringify(product)); 
                     window.location.href = 'pay.html'; // 跳转到结账页面
                 },
                 nextPage() {
