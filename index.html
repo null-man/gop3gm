@@ -51,7 +51,7 @@
     <header class="bg-white relative z-20 px-6">
       <div class="container mx-auto flex justify-between items-center relative h-24">
 
-        <a href="#" class="w-64 h-full inline-block py-4 flex items-center font-black text-lg">
+        <a href="index.html" class="w-64 h-full inline-block py-4 flex items-center font-black text-lg">
           GOP3GM
           <!-- <img src="http://placehold.it/280x160" class="h-full w-auto" /> -->
         </a>
@@ -95,7 +95,7 @@
       </div>
     </header>
 
-    <div class="mx-auto max-w-6xl bg-white py-20 px-12 lg:px-24 shadow-xl mb-10">
+    <div class="mx-auto max-w-6xl bg-white py-10 px-12 lg:px-24 shadow-xl mb-10">
 
       <div class="mb-12">
         <h1 class="text-3xl lg:text-4xl text-center mb-6 tracking-wider">NBA 2K24 Accounts</h1>
@@ -114,17 +114,17 @@
               <div class="text-center text-xs">{{ product.name }}</div>
               <div class="text-center mt-2 mb-4 text-red-500 font-bold text-xl">¥{{ product.price.toFixed(2) }}</div>
               <div class="flex justify-around">
-                <button  @click="detail(product)" class="bg-blue-500 text-white text-xs px-4 py-2 m-2 rounded">详细内容</button>
-                <button  @click="pay(product)" class="bg-blue-500 text-white text-xs px-4 py-2 m-2 rounded" href="/pay.html">立即购买</button>
+                <button  @click="detail(product)" data-translate="detail" class="bg-blue-500 text-white text-xs px-4 py-2 m-2 rounded">详细内容</button>
+                <button  @click="pay(product)" data-translate="buy" class="bg-blue-500 text-white text-xs px-4 py-2 m-2 rounded" href="/pay.html">立即购买</button>
               </div>
             </div>
            </div>
 
            <div class="container mx-auto py-4">
               <div class="flex justify-center items-center mt-4">
-                <button @click="previousPage" :disabled="currentPage === 1" class="px-4 py-2 mx-1 rounded bg-gray-300 text-gray-700 hover:bg-gray-400 disabled:opacity-50">上一页</button>
-                <span class="mx-2 text-lg">页码: {{ currentPage }} / {{ totalPages }}</span>
-                <button @click="nextPage" :disabled="currentPage === totalPages" class="px-4 py-2 mx-1 rounded bg-gray-300 text-gray-700 hover:bg-gray-400 disabled:opacity-50">下一页</button>
+                <button @click="previousPage" :disabled="currentPage === 1" data-translate="pre" class="px-4 py-2 mx-1 rounded bg-gray-300 text-gray-700 hover:bg-gray-400 disabled:opacity-50">上一页</button>
+                <span class="mx-2 text-lg" data-translate="pagination">页码</span>:<span class="mx-2 text-lg"> {{ currentPage }} / {{ totalPages }}</span>
+                <button @click="nextPage" :disabled="currentPage === totalPages" data-translate="next" class="px-4 py-2 mx-1 rounded bg-gray-300 text-gray-700 hover:bg-gray-400 disabled:opacity-50">下一页</button>
             </div>
           </div>
 
@@ -301,14 +301,24 @@
                   about: 'About Us',
                   products: 'Products',
                   services: 'Services',
-                  cart: 'Cart'
+                  cart: 'Cart',
+                  detail:'Detail',
+                  buy:'Buy Now',
+                  pre:'previousPage',
+                  next:'nextPage',
+                  pagination:'pagination'
               },
               cn: {
                   home: '首页',
                   about: '关于我们',
                   products: '产品',
                   services: '服务',
-                  cart: '购物车'
+                  cart: '购物车',
+                  detail:'详细内容',
+                  buy:'立即购买',
+                  pre:'上一页',
+                  next:'下一页',
+                  pagination:'页码'
               },
               es: {
                   home: 'Inicio',
